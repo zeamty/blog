@@ -11,7 +11,7 @@
 3.  Parish
 
 ## code
-```
+``` c
 #include<stdio.h>
 int main() {
     printf("Hello World!\n");
@@ -24,3 +24,4 @@ int main() {
 | Jack | 28  | male   |
 | Mike | 27  | male   |
 | Jane | 26  | female |
+
