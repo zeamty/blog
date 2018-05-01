@@ -4,7 +4,7 @@ module.exports = {
     dest: '../docs',
     themeConfig: {
         nav: [
-            { text: 'Home', link: '/' },
+            { text: '主页', link: '/' },
             {
                 text: '目录',
                 items: [
