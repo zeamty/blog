@@ -5,7 +5,7 @@
 <!--
 <a target="_blank" :href="$withBase('/static/img/fasrhknvhaf0.jpeg')"><img width="50%" :src="$withBase('/static/img/fasrhknvhaf0.jpeg')"></a>
 -->
-<img width="75%" :src="$withBase('/static/img/fasrhknvhaf0.jpeg')">
+<img width="80%" :src="$withBase('/static/img/fasrhknvhaf0.jpeg')">
 
 ## 暴力求解(Python)
 ``` python
