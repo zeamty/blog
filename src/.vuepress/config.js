@@ -6,9 +6,9 @@ module.exports = {
         nav: [
             { text: '主页', link: '/' },
             {
-                text: '目录',
+                text: '其他',
                 items: [
-                    { text: '2018', link: '/2018/05-01' },
+                    { text: '2018', link: '/Others/2018/05-01' },
                 ],
             },
             { text: '关于', link: '/about' },
