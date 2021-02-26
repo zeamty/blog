@@ -1,4 +1,4 @@
-
+# Python
 
 ## 匿名函数、闭包
 
@@ -35,3 +35,5 @@ def a(x):
 a = lambda x: lambda : x + 1
 a(1)()
 ```
+
+## setattr
