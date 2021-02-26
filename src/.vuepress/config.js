@@ -20,7 +20,7 @@ module.exports = {
             {
                 text: '编程语言',
                 items: [
-                    { text: 'Python', link: '' },
+                    { text: 'Python', link: '/pl/python' },
                     { text: 'Go', link: '' },
                     { text: 'Java', link: '' },
                     { text: 'JavaScript', link: '' },
