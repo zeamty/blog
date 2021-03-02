@@ -27,14 +27,67 @@ module.exports = {
                     { text: '其他', link: '' },
                 ],
             },
-            {
-                text: '组件',
+            {   
+                text: '后端',
                 items: [
-                    { text: 'Linux', link: '' },
-                    { text: 'DB & Cache', link: '' },
-                    { text: 'Web', link: '' },
-                    { text: '中间件', link: '' },
-                    { text: 'RPC', link: '' },
+                    { 
+                        text: '架构&编程范式', 
+                        items: [
+                            { text: '软件架构', link: '' },
+                            { text: '编程范式', link: '' },
+                            { text: '', link: '' },
+                        ],
+                    },
+                    {
+                        text: '设计模式',
+                        items: [
+                            { text: '', link: '' },
+                            { text: '', link: '' },
+                        ],
+                    },
+                    { 
+                        text: '框架', 
+                        items: [
+                            { text: 'Web-HTTP框架', link: '' },
+                            { text: 'RPC框架', link: '' },
+                            { text: '其他框架', link: '' },
+                        ],
+                    },
+                    {
+                        text: '组件',
+                        items: [
+                            { text: 'Linux', link: '' },
+                            { text: 'DB & Cache', link: '' },
+                            { text: 'Web-HTTP部署', link: '' },
+                            { text: '中间件', link: '' },
+                            { text: 'SSO', link: '' },
+                        ],
+                    },
+                    {
+                        text: '高并发系统',
+                        items: [
+                            { text: '', link: '' },
+                            { text: '', link: '' },
+                        ],
+                    },
+                    { 
+                        text: '大数据&分布式应用', 
+                        items: [
+                            { text: '批式计算', link: '' },
+                            { text: '流式计算', link: '' },
+                            { text: '存储', link: '' },
+                            { text: '查询', link: '' },
+                            { text: '组件', link: '' },
+                        ],
+                    },
+                    {
+                        text: '云计算',
+                        items: [
+                            { text: '计算', link: '' },
+                            { text: '存储', link: '' },
+                            { text: '部署', link: '' },
+                        ],
+                    },
                 ],
             },
             {
@@ -61,20 +114,21 @@ module.exports = {
             {
                 text: '应用',
                 items: [
-                    { text: '架构', link: '' },
-                    { text: '工程管理', link: '' },
-                    { text: '大数据&分布式应用&云计算', link: '' },
                     { text: 'AI', link: '' },
+                    { text: '搜索', link: ''},
+                    { text: '推荐', link: ''},
+                    { text: '游戏', link: ''},
+                    { text: 'AR & VR', link: ''},
+                    { text: '物联网IoT', link: ''},
+                    { text: '区块链', link: ''},
+                ],
+            },
+            {
+                text: '工程',
+                items: [
                     { text: '运维&测试', link: '' },
+                    { text: '工程管理', link: '' },
                     { text: '开发工具', link: '' },
-                    { text: '其他应用', items: [ 
-                        { text: '搜索', link: ''},
-                        { text: '推荐', link: ''},
-                        { text: '游戏', link: ''},
-                        { text: 'AR & VR', link: ''},
-                        { text: '物联网IoT', link: ''},
-                        { text: '区块链', link: ''},
-                    ] },
                 ],
             },
             {
