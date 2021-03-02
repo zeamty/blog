@@ -70,6 +70,11 @@ module.exports = {
                             { text: '', link: '' },
                         ],
                     },
+                ],
+            },
+            {
+                text: '大数据&云计算',
+                items: [
                     { 
                         text: '大数据&分布式应用', 
                         items: [
@@ -97,6 +102,7 @@ module.exports = {
                     { text: 'CSS', link: '' },
                     { text: 'JS', link: '' },
                     { text: 'UI', link: '' },
+                    { text: '标记语言', link: '' },
                     { text: '其他', link: '' },
                 ],
             },
