@@ -12,6 +12,7 @@ module.exports = {
                     { text: '计算机网络', link: '' },
                     { text: '操作系统', link: '' },
                     { text: '计算机组成原理', link: '' },
+                    { text: '编译原理', link: '' },
                     { text: '数据库原理', link: '' },
                     { text: '软件工程', link: '' },
                     { text: '安全', link: '' },
@@ -21,35 +22,29 @@ module.exports = {
                 text: '编程语言',
                 items: [
                     { text: 'Python', link: '/pl/python' },
-                    { text: 'Go', link: '' },
-                    { text: 'Java', link: '' },
-                    { text: 'JavaScript', link: '' },
-                    { text: '其他', link: '' },
+                    { text: 'Go', link: '/pl/go' },
+                    { text: 'Java', link: '/pl/java' },
+                    { text: 'JavaScript', link: '/pl/js' },
+                    { text: '其他', link: '/pl/others' },
                 ],
             },
-            {   
+            {
                 text: '后端',
                 items: [
-                    { 
-                        text: '架构&编程范式', 
+                    {
+                        text: '架构',
                         items: [
                             { text: '软件架构', link: '' },
                             { text: '编程范式', link: '' },
-                            { text: '', link: '' },
+                            { text: '设计模式', link: '' },
+                            { text: '高并发系统', link: '' },
                         ],
                     },
                     {
-                        text: '设计模式',
+                        text: '框架',
                         items: [
-                            { text: '', link: '' },
-                            { text: '', link: '' },
-                        ],
-                    },
-                    { 
-                        text: '框架', 
-                        items: [
-                            { text: 'Web-HTTP框架', link: '' },
-                            { text: 'RPC框架', link: '' },
+                            { text: 'Web框架', link: '/server/framework/web/' },
+                            { text: 'RPC框架', link: '/server/framework/rpc/' },
                             { text: '其他框架', link: '' },
                         ],
                     },
@@ -58,25 +53,29 @@ module.exports = {
                         items: [
                             { text: 'Linux', link: '' },
                             { text: 'DB & Cache', link: '' },
-                            { text: 'Web-HTTP部署', link: '' },
+                            { text: 'Web部署', link: '' },
                             { text: '中间件', link: '' },
+                        ],
+                    },
+                    {
+                        text: '模块',
+                        items: [
                             { text: 'SSO', link: '' },
                         ],
                     },
                     {
-                        text: '高并发系统',
+                        text: '其他',
                         items: [
-                            { text: '', link: '' },
-                            { text: '', link: '' },
+                            { text: '正则表达式', link: '' }
                         ],
-                    },
+                    }
                 ],
             },
             {
                 text: '大数据&云计算',
                 items: [
-                    { 
-                        text: '大数据&分布式应用', 
+                    {
+                        text: '大数据&分布式应用',
                         items: [
                             { text: '批式计算', link: '' },
                             { text: '流式计算', link: '' },
@@ -113,16 +112,18 @@ module.exports = {
                     { text: 'iOS', link: '' },
                     { text: '移动跨平台', link: '' },
                     { text: '小程序', link: '' },
+                    { text: 'Mac', link: '' },
                     { text: 'Windows', link: '' },
                     { text: 'Linux', link: '' },
+                    { text: 'PC跨平台', link: '' },
                 ],
             },
             {
                 text: '应用',
                 items: [
-                    { text: 'AI', link: '' },
                     { text: '搜索', link: ''},
                     { text: '推荐', link: ''},
+                    { text: 'AI', link: '' },
                     { text: '游戏', link: ''},
                     { text: 'AR & VR', link: ''},
                     { text: '物联网IoT', link: ''},
@@ -130,11 +131,13 @@ module.exports = {
                 ],
             },
             {
-                text: '工程',
+                text: '工程实践',
                 items: [
-                    { text: '运维&测试', link: '' },
+                    { text: '测试', link: '' },
+                    { text: '运维', link: '' },
                     { text: '工程管理', link: '' },
                     { text: '开发工具', link: '' },
+                    { text: '代码规范', link: '' },
                 ],
             },
             {
