@@ -41,3 +41,29 @@ getattr
 
 ## 协程
 gevent、asyncio
+
+## module
+schedule
+atexit
+timeit
+
+```python
+schedule.every(10).minutes.do(func)
+schedule.run_pending()
+```
+
+## 迭代器
+```python
+a = iter(aa_list)
+for aa in a:
+    print aa
+print list(a)  # empty: 迭代器只能遍历一次，如需多次，需先转换成列表等
+```
+
+## 正则表达式
+```python
+import re
+
+re.sub(r'([1-3]*) (?P<name>[qw]*)', '\g<1> 000 \g<name>', '123 qwe')  # '123 000 qwe'
+
+```
