@@ -26,7 +26,6 @@
 * 若内部类中与外部类有同名的域或方法，可用 OuterClass.this.field/method 访问。
 * 方法中的内部类的地位和方法中的局部变量相同，即不能被public,private,protected,static修饰，但可被final,abstract修饰。
 * 匿名类不能有修饰符，不能定义构造方法（故构造时不带参数），创建与实例化同时进行。
-* 若
 * 判断字符串内容是否相同时应使用equals()方法，而不是==。例:String str1 = new String("123");String str2 = new String("123");str1==str2返回false，str1.equals(str2)返回true.
 * 调用Arrays.binarySearch() (二分法查找)前要先调用Arrays.sort(),否则结果不可预期。
 * public static double random()产生0 - 1之间的随机数。
