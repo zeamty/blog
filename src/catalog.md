@@ -147,7 +147,7 @@
     * 编辑器&IDE(Sublime Text、Webstorm、VScode)
     * 调试工具(Chrome dev tools)
     * 设计(PWA渐进式web应用、SPA单页应用、响应式网页设计)
-    * 安全(XSS、CSRF、跨域&JSONP&CORS)
+    * 安全(XSS、CSRF、跨域&JSONP&CORS&JsonWebToken)
 
 ## 客户端
 * 安卓: Java、Kotlin
