@@ -5,6 +5,7 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: '主页', link: '/' },
+            { text: '概览', link: '/catalog' },
             {
                 text: '基础',
                 items: [
@@ -51,7 +52,7 @@ module.exports = {
                     {
                         text: '组件',
                         items: [
-                            { text: 'Linux', link: '' },
+                            { text: 'Linux', link: '/server/component/linux' },
                             { text: 'DB & Cache', link: '' },
                             { text: 'Web部署', link: '' },
                             { text: '中间件', link: '' },
