@@ -7,25 +7,26 @@
         * 熟悉：JavaScript, Go
         * 关注动态：Rust, C++
         * 学习相关：C(Linux, Nginx, Redis), Lua(语言实现), Scheme(sicp)
-    * 后端: Linux(Debian&CentOS)、Vim、Git、MySQL、Redis、Nginx、Thrift；Kafka & Spark & Etcd & Consul、scikit-learning & TensorFlow、Docker & Jenkins
+    * 后端: Linux、MySQL、Redis、Nginx、Thrift；Kafka、Elasticsearch、Docker
     * 前端：html5、css3 & less、Vue & lodash & node.js
-    * 其他：算法、设计模式、架构、分布式应用、高并发系统、读源码：编译器&解释器(lua，z-lang)、操作系统内核(linux，m-os)、数据库(redis，t-db)、nginx(Web服务器，p-webserver)、Web浏览器(WebKit，a-browser)、编辑器(Scintilla&SciTE，l-editor)
+    * 开发工具：Vim、Git
+    * 其他：算法、设计模式、架构、分布式应用、高并发系统
 * 长期计划
     * 算法：leetcode
-    * zmt-pal
+    * zmt-pal: 读源码 & 模仿实现
         * z-lang: 仿lua或c或go，编译器基于jvm或者不基于jvm
-        * m-os
-        * t-db
-        * p-webserver
-        * a-browser
-        * l-editor
-    * 游戏：RPG游戏
+        * m-os: 仿linux
+        * t-db: 仿redis
+        * p-webserver: 仿nginx
+        * a-browser: webkit
+        * l-editor: Scintilla&SciTE
+    * 游戏：RPG-Maker
 * 项目实践记录
     * 编程语言
         * 熟悉：C, C++(STL, Boost), Java, SQL, Shell(Bash), Python, PHP, JavaScript, Go
         * 了解：C#(ASP.NET), Perl, Scheme, Lua, Haskell, Scala, Ruby, Prolog, Rust
     * bd1：c++(consumer脚本-含mysql&redis)，php(仿yaf框架、简单版ORM框架), openresty(http api)，go(http api)，机器学习(spark mllib决策树&支持向量机，paddlepaddle深度学习)，大数据(solar cloud)，了解（大数据相关：MapReduce、Hadoop、Hdfs、HBase、Hive、spark、zk；消息队列：kafka）
-    * bd2：python(django框架、flask框架、thrift api)、fe(vue+iview&element-ui&mint-ui&vux、react+ant.design)、go(thrift api、gin框架)、了解(mongodb、swagger、metrics&grafana)
+    * bd2：python(django框架、flask框架、thrift api)、fe(vue+iview&element-ui&mint-ui&vux、react+ant.design)、go(thrift api、gin框架)、了解(mongodb、swagger、tsdb&grafana)
 
 ## 计算机科学基础
 * 计算机组成原理
@@ -60,7 +61,7 @@
     * 软件架构: MVC、C/S、SOA、微服务、Service Mesh(Envoy)、Serverless、Restful
     * 编程范式: 过程式或命令式、OOP、IoC/AOP、模板&泛型、函数式、元编程、声明式如sql
     * 设计模式
-    * 高并发系统: 多进程/线程/协程编程、异步IO
+    * 高并发系统: 多进程/线程/协程编程、异步IO、负载均衡LB
 * 框架
     * Web框架
         * PHP(Yaf&Smarty&Zend Framework)、Python(Django)
@@ -71,7 +72,9 @@
     * 其他
         * Java(vert.x/netty、RxJava), php(swoole)
 * 组件
-    * Linux
+    * OS
+        * Linux((Debian&CentOS))
+        * VxWorks
     * DB
         * MySQL
         * Oracle、SQL Server、DB2、PostgreSQL、SQLite、PouchDB(js)、TiDB、时序型数据库(openTSDB, InfluxDB, TimescaleDB)
@@ -95,15 +98,21 @@
     * 流式计算
         * Storm、Spark Streaming、Flink、Spring Cloud Data Flow
     * 存储
-        * Hdfs(非结构化数据)、HBase(结构化数据-列存储)
+        * HDFS(非结构化数据)、HBase(结构化数据-列存储)
     * 查询
         * Hive、Spark SQL、Spark GraphX(图计算)
     * 组件
         * 协调系统(Paxos、Raft协议)：ZooKeeper、ETCD、Consul
         * 机器学习：Spark Mllib
+        * 资源管理：Yarn
         * 消息队列：Kafka
         * 文件系统: Ceph
         * 分布式关系数据库: OLAP&OLTP
+    * 算法
+        * 一致性hash
+        * CAP定理
+        * 分布式ID生成器
+        * 选举算法
 * 云计算
     * 计算
         * 云计算(IaaS&PaaS&SaaS、BaaS&FaaS、*aaS(en.wikipedia.org/wiki/As_a_service))
@@ -171,6 +180,7 @@
     * 部署(Makefile、Ant、Maven)
     * 持续集成(Jenkins、hudson等)
     * 日志&监控：tsdb/grafana/prometheus、ELK(Elasticsearch+Logstash+Kibana)、bosun(数据源：ELK, OpenTSDB, Graphite等)、sentry等
+    * 问题排查：opentracing([分布式系统跟踪标准OpenTracing介绍（设计原则）](https://zhuanlan.zhihu.com/p/48308774)、[Go微服务全链路跟踪详](https://zhuanlan.zhihu.com/p/79419529)])
     * 灰度发布&小流量
     * DevOps & SRE
     * ABTest
@@ -190,7 +200,6 @@
 * 开发工具
     * OS
         * Linux(Debian、CentOS等)
-        * VxWorks
     * IDE
         * Vim
         * Emacs、Eclipse、JB's IDE、VScode
