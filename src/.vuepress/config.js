@@ -143,7 +143,17 @@ module.exports = {
             {
                 text: '其他',
                 items: [
-                    { text: '2018', link: '/others/2018-05-01' },
+                    {
+                        text: '历史备份',
+                        items: [
+                            { text: '2018', link: '/others/2018-05-01' },
+                        ]
+                    },
+                    {
+                        text: '读书笔记',
+                        link: '/others/notes/reading_notes',
+                    },
+                    { text: '智力题', link: '/others/puzzle' },
                 ],
             },
             { text: '关于', link: '/about' },
