@@ -58,7 +58,7 @@
     * 其他：SQL, Assembly(汇编语言)
 ## 后端
 * 架构
-    * 软件架构: MVC、C/S、SOA、微服务、Service Mesh(Envoy)、Serverless、Restful
+    * 软件架构: MVC、C/S、SOA、微服务、Serverless、Restful
     * 编程范式: 过程式或命令式、OOP、IoC/AOP、模板&泛型、函数式、元编程、声明式如sql
     * 设计模式
     * 高并发系统: 多进程/线程/协程编程、异步IO、负载均衡LB
@@ -119,7 +119,7 @@
     * 存储
         * 云计算存储(块存储、对象存储、CDN存储)
     * 部署
-        * Docker、Kubernetes(k8s)
+        * Docker、Kubernetes(k8s)、Envoy(service mesh)
 
 ## 前端
 * HTML: HTML5
