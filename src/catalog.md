@@ -1,32 +1,44 @@
 # 目录
 
 ## 个人
-* 规划路径
-    * 编程语言：
-        * 专注：Python, Java
-        * 熟悉：JavaScript, Go
-        * 关注动态：Rust, C++
-        * 学习相关：C(Linux, Nginx, Redis), Lua(语言实现), Scheme(sicp)
-    * 后端: Linux、MySQL、Redis、Nginx、Thrift；Kafka、Elasticsearch、Docker
-    * 前端：html5、css3 & less、Vue & lodash & node.js
-    * 开发工具：Vim、Git
-    * 其他：算法、设计模式、架构、分布式应用、高并发系统
-* 长期计划
-    * 算法：leetcode
-    * zmt-pal: 读源码 & 模仿实现
-        * z-lang: 仿lua或c或go，编译器基于jvm或者不基于jvm
-        * m-os: 仿linux
-        * t-db: 仿redis
-        * p-webserver: 仿nginx
-        * a-browser: webkit
-        * l-editor: Scintilla&SciTE
-    * 游戏：RPG-Maker
-* 项目实践记录
-    * 编程语言
-        * 熟悉：C, C++(STL, Boost), Java, SQL, Shell(Bash), Python, PHP, JavaScript, Go
-        * 了解：C#(ASP.NET), Perl, Scheme, Lua, Haskell, Scala, Ruby, Prolog, Rust
-    * bd1：c++(consumer脚本-含mysql&redis)，php(仿yaf框架、简单版ORM框架), openresty(http api)，go(http api)，机器学习(spark mllib决策树&支持向量机，paddlepaddle深度学习)，大数据(solar cloud)，了解（大数据相关：MapReduce、Hadoop、Hdfs、HBase、Hive、spark、zk；消息队列：kafka）
-    * bd2：python(django框架、flask框架、thrift api)、fe(vue+iview&element-ui&mint-ui&vux、react+ant.design)、go(thrift api、gin框架)、了解(mongodb、swagger、tsdb&grafana)
+### 当下计划
+* 熟悉：
+    * 编程语言: Python, Go, Java
+    * 组件: Linux, MySQL, Redis, Nginx, Kafka, Elasticsearch, Docker, Thrift
+    * 框架：Django
+    * 工具：Shell, Vim, Git
+    * 数据结构&算法：
+    * 原理：HTTP(HTTPS, keep-alive, HTTP/2, ajax轮询&long poll)
+    * 架构：高并发系统
+    * 设计模式：单例模式的各种类型
+* 了解：
+    * 编程语言：JavaScript
+    * 组件：MongoDB、大数据(计算：MR、Spark、Storm、Flink; 存储：HDFS、HBase；查询：Hive；其他：Yarn、ZK）、时序存储(tsdb、InfluxDB，应用：实时监控 & Prometheus & Grafana)、OpenTracing
+    * 框架：Flask, Gin
+    * 前端：HTML5, CSS3 & Less, Vue.js & Lodash.js & Node.js
+
+### 长期计划
+* 编程语言：
+    * 专注：Python, Java
+    * 熟悉：JavaScript, Go
+    * 关注动态：Rust, C++
+    * 学习相关：C(Linux, Nginx, Redis), Lua(语言实现), Scheme(sicp)
+* zmt-pal: 读源码 & 模仿实现
+    * z-lang: 仿lua或c或go，编译器基于jvm或者不基于jvm
+    * m-os: 仿linux
+    * t-db: 仿redis
+    * p-webserver: 仿nginx
+    * a-browser: webkit
+    * l-editor: Scintilla&SciTE
+* 算法：leetcode
+* 游戏：RPG-Maker
+
+### 项目实践记录
+* 编程语言
+    * 熟悉：C, C++(STL, Boost), Java, SQL, Shell(Bash), Python, PHP, JavaScript, Go
+    * 了解：C#(ASP.NET), Perl, Scheme, Lua, Haskell, Scala, Ruby, Prolog, Rust
+* bd1：c++(consumer脚本-含mysql&redis)，php(仿yaf框架、简单版ORM框架), openresty(http api)，go(http api)，机器学习(spark mllib决策树&支持向量机，paddlepaddle深度学习)，大数据(solar cloud)，了解（大数据相关：MapReduce、Hadoop、Hdfs、HBase、Hive、spark、zk；消息队列：kafka）
+* bd2：python(django框架、flask框架、thrift api)、fe(vue+iview&element-ui&mint-ui&vux、react+ant.design)、go(thrift api、gin框架)、了解(mongodb、swagger、tsdb&grafana)
 
 ## 计算机科学基础
 * 计算机组成原理
