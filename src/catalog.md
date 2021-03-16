@@ -64,7 +64,7 @@
     * 软件架构: MVC、C/S、SOA、微服务、Serverless、Restful
     * 编程范式: 过程式或命令式、OOP、IoC/AOP、模板&泛型、函数式、元编程、声明式如sql
     * 设计模式
-    * 高并发系统: 多进程/线程/协程编程、异步IO、负载均衡LB
+    * 高并发系统: 多进程/线程/协程编程、异步IO、负载均衡LB、C10K & C100K等
 * 框架
     * Web框架
         * PHP(Yaf&Smarty&Zend Framework)、Python(Django)
