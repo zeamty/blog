@@ -18,6 +18,7 @@
             * web服务
             * 脚本
 * Go
+    * plugin
 
 * Java
 
