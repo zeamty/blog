@@ -1,14 +1,14 @@
-# 目录
+# 概览
 
 ## 个人
 ### 当下计划
 * 熟悉：
     * 编程语言: Python, Go, Java
+    * 数据结构&算法：Leetcode
     * 组件: Linux, MySQL, Redis, Nginx, Kafka, Elasticsearch, Docker, Thrift
     * 框架：Django
     * 工具：Shell, Vim, Git
-    * 数据结构&算法：
-    * 原理：HTTP(HTTPS, keep-alive, HTTP/2, ajax轮询&long poll)
+    * 原理：HTTP
     * 架构：高并发系统
     * 设计模式：单例模式的各种类型
 * 了解：

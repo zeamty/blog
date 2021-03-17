@@ -6,6 +6,8 @@ module.exports = {
         nav: [
             { text: '主页', link: '/' },
             { text: '概览', link: '/catalog' },
+            { text: '个人', link: '/personal' },
+            { text: '后端', link: '/server/' },
 //            {
 //                text: '基础',
 //                items: [
@@ -19,16 +21,16 @@ module.exports = {
 //                    { text: '安全', link: '' },
 //                ],
 //            },
-//            {
-//                text: '编程语言',
-//                items: [
-//                    { text: 'Python', link: '/pl/python' },
-//                    { text: 'Go', link: '/pl/go' },
-//                    { text: 'Java', link: '/pl/java' },
-//                    { text: 'JavaScript', link: '/pl/js' },
-//                    { text: '其他', link: '/pl/others' },
-//                ],
-//            },
+            {
+                text: '编程语言',
+                items: [
+                    { text: 'Python', link: '/pl/python' },
+                    { text: 'Go', link: '/pl/go' },
+                    { text: 'Java', link: '/pl/java' },
+                    { text: 'JavaScript', link: '/pl/js' },
+                    { text: '其他', link: '/pl/others' },
+                ],
+            },
 //            {
 //                text: '后端',
 //                items: [
@@ -44,15 +46,15 @@ module.exports = {
 //                    {
 //                        text: '框架',
 //                        items: [
-//                            { text: 'Web框架', link: '/server/framework/web/' },
-//                            { text: 'RPC框架', link: '/server/framework/rpc/' },
+//                            { text: 'Web框架', link: '' },
+//                            { text: 'RPC框架', link: '' },
 //                            { text: '其他框架', link: '' },
 //                        ],
 //                    },
 //                    {
 //                        text: '组件',
 //                        items: [
-//                            { text: 'Linux', link: '/server/component/linux' },
+//                            { text: 'Linux', link: '' },
 //                            { text: 'DB & Cache', link: '' },
 //                            { text: 'Web部署', link: '' },
 //                            { text: '中间件', link: '' },
