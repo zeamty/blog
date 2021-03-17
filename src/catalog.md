@@ -13,7 +13,7 @@
     * 设计模式：单例模式的各种类型
 * 了解：
     * 编程语言：JavaScript
-    * 组件：MongoDB、大数据(计算：MR、Spark、Storm、Flink; 存储：HDFS、HBase；查询：Hive；其他：Yarn、ZK）、时序存储(tsdb、InfluxDB，应用：实时监控 & Prometheus & Grafana)、OpenTracing
+    * 组件：MongoDB、大数据(计算：MR、Spark、Storm、Flink; 存储：HDFS、HBase；查询：Hive；其他：Yarn、ZK)、时序存储(tsdb、InfluxDB，应用：实时监控 & Prometheus & Grafana)、OpenTracing
     * 框架：Flask, Gin
     * 前端：HTML5, CSS3 & Less, Vue.js & Lodash.js & Node.js
 
@@ -195,7 +195,7 @@
     * 部署(Makefile、Ant、Maven)
     * 持续集成(Jenkins、hudson等)
     * 日志&监控：tsdb/grafana/prometheus、ELK(Elasticsearch+Logstash+Kibana)、bosun(数据源：ELK, OpenTSDB, Graphite等)、sentry等
-    * 问题排查：opentracing([分布式系统跟踪标准OpenTracing介绍（设计原则）](https://zhuanlan.zhihu.com/p/48308774)、[Go微服务全链路跟踪详](https://zhuanlan.zhihu.com/p/79419529)])
+    * 问题排查：opentracing
     * 灰度发布&小流量
     * DevOps & SRE
     * ABTest
