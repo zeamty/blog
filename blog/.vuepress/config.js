@@ -5,14 +5,15 @@ module.exports = {
     theme: '@vuepress/theme-blog',
     themeConfig: {
       dateFormat: 'YYYY-MM-DD',
-      footer: {
-        contact: [
-          {
-            type: 'github',
-            link: 'https://github.com/zeamty',
-          },
-        ],
-      },
+      footer: false,
+      // footer: {
+      //   contact: [
+      //     {
+      //       type: 'github',
+      //       link: 'https://github.com/zeamty',
+      //     },
+      //   ],
+      // },
       comment: {
         service: "disqus",
         shortname: "pal-blog",
