@@ -27,11 +27,11 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "2023/05/04/golang-misc/index.html",
-    "revision": "3a0396edf5b11b94a41e237860b1e2e5"
+    "revision": "1abf6b9021640e30454e45cee66e69f8"
   },
   {
     "url": "404.html",
-    "revision": "f66953ffadd8e043cbffd98c0e3f17e5"
+    "revision": "bffdcc76b0dd380eca6c66000bd474a7"
   },
   {
     "url": "assets/css/0.styles.5f60fb72.css",
@@ -66,8 +66,8 @@ self.__precacheManifest = [
     "revision": "b71a67834219f24b490d69ef8e14ce26"
   },
   {
-    "url": "assets/js/14.f7ab391c.js",
-    "revision": "68b61cf4921e61dfbdcd509c504278c6"
+    "url": "assets/js/14.d9d0fa13.js",
+    "revision": "4b0ae78695572f50fa2500dde1b304bc"
   },
   {
     "url": "assets/js/15.9c14f64c.js",
@@ -102,8 +102,8 @@ self.__precacheManifest = [
     "revision": "93b09b7167098a3269df264c11f6017a"
   },
   {
-    "url": "assets/js/app.969db900.js",
-    "revision": "e0639d05bc9cd388e9b523223b015208"
+    "url": "assets/js/app.f0f2d510.js",
+    "revision": "750712dc7fc000199d22de4e4c068ffc"
   },
   {
     "url": "assets/js/vuejs-paginate.55b38529.js",
@@ -111,15 +111,15 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "74668a3ab65688a4b61e69fda04c45cc"
+    "revision": "f9b95ca330e282a9a11ebea9dbdf081b"
   },
   {
     "url": "tag/Go/index.html",
-    "revision": "36c3f130227c463bfbcec55d361cc8dc"
+    "revision": "72f797384c29a7c9366083a781ba2121"
   },
   {
     "url": "tag/index.html",
-    "revision": "7211f5eb0e985a2eda6a50eb2241f7fb"
+    "revision": "118136ce5d14aeab9b047c1697ec3b44"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});

@@ -67,7 +67,7 @@ func IsNil(a interface{}) bool {
 # 循环变量
 * 官方Wiki: <https://github.com/golang/go/wiki/CommonMistakes>
 ```go
-func main() {
+func test1() {
     var out []*int
     for i := 0; i < 3; i++ {
         out = append(out, &i)
@@ -76,7 +76,7 @@ func main() {
     fmt.Println("Addresses:", out[0], out[1], out[2])  // Addresses: 0x40e020 0x40e020 0x40e020
 }
 
-func test() {
+func test2() {
     var wg sync.WaitGroup
     for _, val := range []int{1, 2, 3} {
         wg.Add(1)
@@ -97,13 +97,13 @@ func test() {
 
 * 修改方案：
 ```go
-func main() {
+func test1() {
     for i := 0; i < 3; i++ {
         i := i // Copy i into a new variable.
         out = append(out, &i)
     }
 }
-func test() {
+func test2() {
     var wg sync.WaitGroup
     for _, val := range []int{1, 2, 3} {
         wg.Add(1)
