@@ -6,7 +6,7 @@ tags:
 summary: Go语言一些设计的讨论
 ---
 
-# 空接口(nil interface values)
+## 空接口(nil interface values)
 * 先看一个例子：
 ``` go
 package main
@@ -64,7 +64,7 @@ func IsNil(a interface{}) bool {
 }
 ```
 
-# 循环变量
+## 循环变量
 * 官方Wiki: <https://github.com/golang/go/wiki/CommonMistakes>
 ```go
 func test1() {
@@ -117,9 +117,9 @@ func test2() {
 
 ```
 
-# 零值
+## 零值
 
-## 切片零值 & append操作
+### 切片零值 & append操作
 
 * append一个例子
 ```go
@@ -163,6 +163,6 @@ c := append(a, 2)
 fmt.Printf("%#v %#v %#v\n", a, b, c)  // Output: []int{} []int{2} []int{2}
 ```
 
-# 不可变语义
+## 不可变语义
 
-# json反序列化
+## json反序列化
