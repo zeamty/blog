@@ -20,7 +20,7 @@ func (e *MyError) Error() string {
 func abc() error {
     var err *MyError = nil
 
-    // 其他代码...
+    println(err == nil)  // Output: true
 
     return err // return时实际上发生了隐式类型转换，也即: return error(err)
 }
@@ -79,13 +79,13 @@ func main() {
     ```go
     func abc() error {
         var err *MyError = nil
-        
+
         if err != nil {
             return err
         }
         return nil
     }
-    func main() {   
+    func main() {
         err := abc()
         if err == nil {
             println(1)
@@ -99,12 +99,12 @@ func main() {
     ```go
     func abc() error {
         var err *MyError = nil
-        
+
         // 其他代码...
-        
+
         return err
     }
-    func main() {   
+    func main() {
         err := abc()
         if IsNil(err) {
             println(1)
@@ -123,7 +123,7 @@ func test1() {
     for i := 0; i < 3; i++ {
         out = append(out, &i)
     }
-    fmt.Println("Values:", *out[0], *out[1], *out[2]) 
+    fmt.Println("Values:", *out[0], *out[1], *out[2])
     // Values: 3 3 3
     fmt.Println("Addresses:", out[0], out[1], out[2])
     // Addresses: 0x40e020 0x40e020 0x40e020
@@ -212,6 +212,7 @@ func test2() {
 * 一个例子
 ```go
 func main() {
+	dataStr := `{"id":6781234567890123456,"name":"aaa"}`
 	data := make(map[string]interface{})
 	err := json.Unmarshal([]byte(dataStr), &data)
 	if err != nil {
@@ -257,7 +258,7 @@ func main() {
     func main() {
         dataStr := `{"id":6781234567890123456,"name":"aaa"}`
         data := struct {
-            ID   int64  `json:"id"`  
+            ID   int64  `json:"id"`
             // Go的一大槽点，使用首字母大写表示可导出字段，导致经常需要写struct tag
             Name string `json:"name"`
         }{}
@@ -295,11 +296,11 @@ type Slice[T any] struct {
 func Append[T any](sourceSlice Slice[T], elements ...T) Slice[T] {
 	newSlice := Slice[T]{}
 	newSlice.Len = sourceSlice.Len + len(elements)
-	if len(elements)+sourceSlice.Len <= sourceSlice.Cap { 
+	if len(elements)+sourceSlice.Len <= sourceSlice.Cap {
         // 无需对底层数组扩容，可以直接复用
 		newSlice.Cap = sourceSlice.Cap
 		newSlice.Data = sourceSlice.Data
-	} else { 
+	} else {
         // 需要申请新数组
 		newSlice.Cap = sourceSlice.Cap * GROW_FACTOR
 		newData := make([]T, 0, newSlice.Cap)
@@ -344,7 +345,7 @@ func main() {
 	ageMap := map[int][]string{}
 	for _, v := range b {
         // 注意：slice零值是nil，而append可以对slice的零值nil操作
-		ageMap[v.Age] = append(ageMap[v.Age], v.Name) 
+		ageMap[v.Age] = append(ageMap[v.Age], v.Name)
 	}
 	fmt.Println(ageMap) // Output: map[20:[Jack Mike] 21:[Jane] 22:[Tom]]
 }

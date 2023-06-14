@@ -27,14 +27,14 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "2023/06/12/golang-misc/index.html",
-    "revision": "c8c79c5b500aaec945b9fed4946236bb"
+    "revision": "c62e043bed5d1ddcb3a049493f8f6ddc"
   },
   {
     "url": "404.html",
-    "revision": "47b9e6f8483549b8795c2beeba600172"
+    "revision": "7a81f58b145524c236b32742c6b4e85e"
   },
   {
-    "url": "assets/css/0.styles.5f60fb72.css",
+    "url": "assets/css/0.styles.93f708f3.css",
     "revision": "c46eda9e5a5d8e8c1d586196a2c99121"
   },
   {
@@ -66,8 +66,8 @@ self.__precacheManifest = [
     "revision": "b71a67834219f24b490d69ef8e14ce26"
   },
   {
-    "url": "assets/js/14.a31fae44.js",
-    "revision": "c94618bcff644db39821d9da7b7131aa"
+    "url": "assets/js/14.18c096b4.js",
+    "revision": "7729dc30ae87892e1a27efbd733125e2"
   },
   {
     "url": "assets/js/15.9c14f64c.js",
@@ -78,8 +78,8 @@ self.__precacheManifest = [
     "revision": "93faf87e77d3439b1bc321f4a1132862"
   },
   {
-    "url": "assets/js/4.c436be85.js",
-    "revision": "e82cfa8338c1a3737bfa2e5ae0b960bb"
+    "url": "assets/js/4.9dd284b2.js",
+    "revision": "d90b2072fe1733d1f72dc01ff7499be1"
   },
   {
     "url": "assets/js/5.70d6962b.js",
@@ -94,16 +94,16 @@ self.__precacheManifest = [
     "revision": "ce082e0b45a101b8004d77c285b21ac2"
   },
   {
-    "url": "assets/js/8.7da5c745.js",
-    "revision": "d09e672612416517caaa2306d353d5e2"
+    "url": "assets/js/8.0fde23e7.js",
+    "revision": "35c4974785d01df19da2ebffa5bb243d"
   },
   {
-    "url": "assets/js/9.f0acb5f9.js",
-    "revision": "93b09b7167098a3269df264c11f6017a"
+    "url": "assets/js/9.c9758d42.js",
+    "revision": "fa6225dfb9e4c6ddbbdf6da68773163a"
   },
   {
-    "url": "assets/js/app.b4b78d7c.js",
-    "revision": "3c083f877b0e8410912d3be621b3a6c1"
+    "url": "assets/js/app.a0dc88c7.js",
+    "revision": "b4b4514c4cbc89c8dd69a4352c4f2a24"
   },
   {
     "url": "assets/js/vuejs-paginate.55b38529.js",
@@ -111,15 +111,15 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "90ef33b4e255e07412aff4a0eb4aa5f2"
+    "revision": "5a8b7ba31c42d8179be4e909cc1e81b6"
   },
   {
     "url": "tag/Go/index.html",
-    "revision": "eea401c816fb8036cd23a8923507cb72"
+    "revision": "33ec56d57d1d501423a3885baf5ae119"
   },
   {
     "url": "tag/index.html",
-    "revision": "977dbad70fc58de9b49cc4c23fc49dcd"
+    "revision": "b640313e0497b0679bf7112b77f86fe1"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
