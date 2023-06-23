@@ -366,6 +366,47 @@ func main() {
     }
     ```
 
+## 函数默认值
+* Go中的函数既不支持重载，也不支持函数默认值，导致需要使用Option模式等方式舍近求远地模拟函数默认值
+```go
+type DB struct {
+	schema string
+	host   string
+	port   int
+}
+
+type Option func(db *DB)
+
+func WithSchema(schema string) Option {
+	return func(db *DB) { db.schema = schema }
+}
+
+func WithHost(host string) Option {
+	return func(db *DB) { db.host = host }
+}
+
+func WithPort(port int) Option {
+	return func(db *DB) { db.port = port }
+}
+
+func NewDB(options ...Option) (*DB, error) {
+	db := &DB{
+		port: 3306,
+	}
+	for _, opt := range options {
+		opt(db)
+	}
+	return db, nil
+}
+
+func main() {
+	db, err := NewDB(WithHost("127.0.0.1"), WithSchema("test"))
+	if err != nil {
+		panic(err)
+	}
+}
+```
+
 ## 其他槽点
 ### 不可变语义
 * Go中缺失不可变语义(比如Java中的`final`)，无法阻止调用方修改某些字段，可能会产生隐蔽且难以排查的bug.
