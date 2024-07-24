@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Go语言的一些常见坑（2） | Pal</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="alternate" type="application/rss+xml" href="https://blog.zeamty.com/rss.xml" title="Pal RSS Feed">
+    <meta name="description" content="Go语言一些设计的讨论（2）">
+    
+    <link rel="preload" href="/assets/css/0.styles.5f60fb72.css" as="style"><link rel="preload" href="/assets/js/app.33e9ffea.js" as="script"><link rel="preload" href="/assets/js/6.d22056b0.js" as="script"><link rel="preload" href="/assets/js/3.d778d637.js" as="script"><link rel="preload" href="/assets/js/15.4ce343c2.js" as="script"><link rel="preload" href="/assets/js/7.3763ae97.js" as="script"><link rel="prefetch" href="/assets/js/10.c8d75ead.js"><link rel="prefetch" href="/assets/js/11.f3c09a77.js"><link rel="prefetch" href="/assets/js/12.e57088b4.js"><link rel="prefetch" href="/assets/js/13.ab5b731e.js"><link rel="prefetch" href="/assets/js/14.225b6828.js"><link rel="prefetch" href="/assets/js/16.bcdd9323.js"><link rel="prefetch" href="/assets/js/4.c436be85.js"><link rel="prefetch" href="/assets/js/5.70d6962b.js"><link rel="prefetch" href="/assets/js/8.7da5c745.js"><link rel="prefetch" href="/assets/js/9.f0acb5f9.js"><link rel="prefetch" href="/assets/js/vuejs-paginate.55b38529.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.5f60fb72.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="vuepress-theme-blog__global-layout"><section id="header-wrapper"><header id="header"><div class="header-wrapper"><div class="title"><a href="/" class="nav-link home-link">Pal </a></div> <div class="header-right-wrap"><ul class="nav"><li class="nav-item"><a href="/" class="nav-link">Blog</a></li><li class="nav-item"><a href="/tag/" class="nav-link">Tags</a></li></ul> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <a href="/rss.xml" class="feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></div></div></header></section> <div id="mobile-header"><div class="mobile-header-bar"><div class="mobile-header-title"><a href="/" class="nav-link mobile-home-link">Pal </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div> <div class="mobile-menu-wrapper"><hr class="menu-divider"> <ul class="mobile-nav"><li class="mobile-nav-item"><a href="/" class="nav-link">Blog</a></li><li class="mobile-nav-item"><a href="/tag/" class="nav-link">Tags</a></li> <li class="mobile-nav-item"><a href="/rss.xml" class="feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></li></ul></div></div></div> <div class="content-wrapper"><div id="vuepress-theme-blog__post-layout"><article itemscope="itemscope" itemtype="https://schema.org/BlogPosting" class="vuepress-blog-theme-content"><header><h1 itemprop="name headline" class="post-title">
+        Go语言的一些常见坑（2）
+      </h1> <div class="post-meta"><!----> <div class="post-meta-date"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <time pubdate itemprop="datePublished" datetime="2024-07-22T00:00:00.000Z">
+      2024-07-22
+    </time></div> <ul itemprop="keywords" class="post-meta-tags"><li class="post-tag" data-v-42ccfcd5><a href="/tag/Go" data-v-42ccfcd5><span data-v-42ccfcd5>Go</span></a></li></ul></div></header> <div itemprop="articleBody" class="content__default"><h2 id="range-map的无序性和随机性"><a href="#range-map的无序性和随机性" class="header-anchor">#</a> range map的无序性和随机性</h2> <ul><li>这段代码(取可用连接id)存在什么问题？</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">type</span> Linker <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> sessionList <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Linker
+
+<span class="token keyword">func</span> <span class="token function">GetValidSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> idx<span class="token punctuation">,</span> s <span class="token operator">:=</span> <span class="token keyword">range</span> sessionList <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> s <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> idx
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>存在的问题：未考虑负载均衡，会导致雪崩</p></blockquote> <ul><li>第一次改造尝试（利用map遍历的无序性）：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">var</span> sessionMap <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token operator">*</span>Linker<span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">GetValidSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> idx<span class="token punctuation">,</span> s <span class="token operator">:=</span> <span class="token keyword">range</span> sessionMap <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> s <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> idx
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>但是测试时发现有问题：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">TestGetRandomSess</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	sessionMap <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token operator">*</span>Linker<span class="token punctuation">{</span>
+		<span class="token number">1</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token number">2</span><span class="token punctuation">:</span> <span class="token boolean">nil</span><span class="token punctuation">,</span>
+		<span class="token number">3</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token number">4</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token number">5</span><span class="token punctuation">:</span> <span class="token boolean">nil</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	m <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100000</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		m<span class="token punctuation">[</span><span class="token function">getRandomValidSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">++</span>
+	<span class="token punctuation">}</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment">// map[1:75038 3:12612 4:12350]</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 测试不同个数元素的map遍历</span>
+<span class="token keyword">func</span> <span class="token function">TestRangeMap</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		m <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+		<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+			m<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+
+		s <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+ 		<span class="token keyword">for</span> k <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> <span class="token number">100000</span><span class="token punctuation">;</span> k<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">for</span> l <span class="token operator">:=</span> <span class="token keyword">range</span> m <span class="token punctuation">{</span>
+				s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token operator">++</span>
+				<span class="token keyword">break</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;%d keys: %v\n&quot;</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span>
+		<span class="token comment">/*
+		 2 keys: map[0:87542 1:12458]
+		 3 keys: map[0:74810 1:12713 2:12477]
+		 4 keys: map[0:62533 1:12541 2:12419 3:12507]
+		 5 keys: map[0:49959 1:12427 2:12614 3:12391 4:12609]
+		 6 keys: map[0:37675 1:12398 2:12461 3:12487 4:12614 5:12365]
+		 7 keys: map[0:24935 1:12517 2:12614 3:12408 4:12328 5:12641 6:12557]
+		 8 keys: map[0:12585 1:12462 2:12474 3:12525 4:12520 5:12532 6:12648 7:12254]
+		 9 keys: map[0:18592 1:37524 2:6226 3:6254 4:6255 5:6217 6:6238 7:6412 8:6282]
+		 10 keys: map[0:6224 1:43939 2:6223 3:6192 4:6139 5:6206 6:6234 7:6226 8:6288 9:6329]
+       */</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></blockquote> <ul><li>原因在于map的遍历不是随机而是无序</li></ul> <blockquote><div class="language- extra-class"><pre><code>go语言中关于range map的规范：The iteration order over maps is not specified and is not guaranteed to be the same from one iteration to the next.
+</code></pre></div><p>这里不打算深究Go底层map遍历的实现(有兴趣的可以结合上面第二个测试用例探究)，而是思考两个问题：</p> <ol><li>map(哈希表)增删改查的时间复杂度都是O(1)，如果要随机取值，时间复杂度是多少？</li> <li>什么样的数据结构，随机取值的时间复杂度是O(1)?</li></ol></blockquote> <ul><li>最后利用slice做随机取值：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">GetValidSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	validSessIds <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+	<span class="token keyword">for</span> idx<span class="token punctuation">,</span> s <span class="token operator">:=</span> <span class="token keyword">range</span> sessionList <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> s <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			validSessIds <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>validSessIds<span class="token punctuation">,</span> idx<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>validSessIds<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> validSessIds<span class="token punctuation">[</span>rand<span class="token punctuation">.</span><span class="token function">Intn</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>validSessIds<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="不可变语义的缺失"><a href="#不可变语义的缺失" class="header-anchor">#</a> 不可变语义的缺失</h2> <ul><li>先看一个例子：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// sug.go</span>
+<span class="token keyword">package</span> sug
+
+<span class="token keyword">import</span> <span class="token string">&quot;encoding/json&quot;</span>
+
+<span class="token keyword">type</span> Suggest <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	Query <span class="token builtin">string</span> <span class="token string">`json:&quot;query&quot;`</span> <span class="token comment">// 赋值后不应被修改</span>
+	Url   <span class="token builtin">string</span> <span class="token string">`json:&quot;url&quot;`</span>   <span class="token comment">// 赋值后不应被修改</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 从配置内容中解析，此处简要实现</span>
+<span class="token keyword">func</span> <span class="token function">GetSuggestConf</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>Suggest <span class="token punctuation">{</span>
+	conf <span class="token operator">:=</span> <span class="token string">`{&quot;query&quot;: &quot;2024高考志愿怎么填&quot;, &quot;url&quot;: &quot;http://a.com?fr=s&quot;}`</span>
+	<span class="token keyword">var</span> s Suggest
+	json<span class="token punctuation">.</span><span class="token function">Unmarshal</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>conf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>s<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> <span class="token operator">&amp;</span>s
+<span class="token punctuation">}</span>
+
+<span class="token comment">// cache_test.go</span>
+<span class="token keyword">package</span> test
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;sug&quot;</span>
+	<span class="token string">&quot;sync&quot;</span>
+	<span class="token string">&quot;testing&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> cache <span class="token operator">=</span> sync<span class="token punctuation">.</span>Map<span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment">// 本地缓存</span>
+
+<span class="token keyword">func</span> <span class="token function">InitCache</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	cache<span class="token punctuation">.</span><span class="token function">Store</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">,</span> sug<span class="token punctuation">.</span><span class="token function">GetSuggestConf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 对外提供的接口</span>
+<span class="token keyword">func</span> <span class="token function">GetSugUrl</span><span class="token punctuation">(</span>k <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> v<span class="token punctuation">,</span> ok <span class="token operator">:=</span> cache<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> sug<span class="token punctuation">,</span> ok <span class="token operator">:=</span> v<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>sug<span class="token punctuation">.</span>Suggest<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+			sug<span class="token punctuation">.</span>Url <span class="token operator">+=</span> <span class="token string">&quot;&amp;q=&quot;</span> <span class="token operator">+</span> sug<span class="token punctuation">.</span>Query <span class="token comment">// 不应被修改的字段被改动！！</span>
+			<span class="token keyword">return</span> sug<span class="token punctuation">.</span>Url
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token string">&quot;&quot;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">TestGetSugUrl</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">InitCache</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填&amp;q=2024高考志愿怎么填</span>
+	<span class="token comment">// 最终随着接口不停被调用，接口返回值不停增大，拖垮整条服务链路，最终服务OOM</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>原因在于：Go语言中缺少变量的不可变语义(变量初始化后值不能被修改，类似于Java中的final)，无法保证可导出变量或字段值被修改。</p></blockquote> <ul><li>一种规避方案(利用内嵌结构体和函数不可变的特性)：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// sug.go</span>
+<span class="token keyword">package</span> sug
+
+<span class="token keyword">import</span> <span class="token string">&quot;encoding/json&quot;</span>
+
+<span class="token keyword">type</span> innerSuggest <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	Query <span class="token builtin">string</span> <span class="token string">`json:&quot;query&quot;`</span>
+	Url   <span class="token builtin">string</span> <span class="token string">`json:&quot;url&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> Suggest <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	innerSuggest
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>Suggest<span class="token punctuation">)</span> <span class="token function">Query</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> s<span class="token punctuation">.</span>innerSuggest<span class="token punctuation">.</span>Query
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>Suggest<span class="token punctuation">)</span> <span class="token function">Url</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> s<span class="token punctuation">.</span>innerSuggest<span class="token punctuation">.</span>Url
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">GetSuggestConf</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>Suggest <span class="token punctuation">{</span>
+	conf <span class="token operator">:=</span> <span class="token string">`{&quot;query&quot;: &quot;2024高考志愿怎么填&quot;, &quot;url&quot;: &quot;http://a.com?fr=s&quot;}`</span>
+	<span class="token keyword">var</span> s innerSuggest
+	json<span class="token punctuation">.</span><span class="token function">Unmarshal</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>conf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>s<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> <span class="token operator">&amp;</span>Suggest<span class="token punctuation">{</span>s<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// cache_test.go</span>
+<span class="token keyword">package</span> test
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;sug&quot;</span>
+	<span class="token string">&quot;sync&quot;</span>
+	<span class="token string">&quot;testing&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> cache <span class="token operator">=</span> sync<span class="token punctuation">.</span>Map<span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">InitCache</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	cache<span class="token punctuation">.</span><span class="token function">Store</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">,</span> sug<span class="token punctuation">.</span><span class="token function">GetSuggestConf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">GetSugUrl</span><span class="token punctuation">(</span>k <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> v<span class="token punctuation">,</span> ok <span class="token operator">:=</span> cache<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> sug<span class="token punctuation">,</span> ok <span class="token operator">:=</span> v<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>sug<span class="token punctuation">.</span>Suggest<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+			url <span class="token operator">:=</span> sug<span class="token punctuation">.</span><span class="token function">Url</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;&amp;q=&quot;</span> <span class="token operator">+</span> sug<span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token keyword">return</span> url
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token string">&quot;&quot;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">TestGetSugUrl</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">InitCache</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填</span>
+	t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">GetSugUrl</span><span class="token punctuation">(</span><span class="token string">&quot;s&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// http://a.com?fr=s&amp;q=2024高考志愿怎么填</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h2 id="内存对齐-struct-field-alignment-和伪共享-false-sharing"><a href="#内存对齐-struct-field-alignment-和伪共享-false-sharing" class="header-anchor">#</a> 内存对齐(struct field alignment)和伪共享(false sharing)</h2> <ul><li>内存对齐在很多编程语言中都存在，go语言也不例外：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">type</span> S1 <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	A <span class="token builtin">int32</span>
+	B <span class="token builtin">int64</span>
+	C <span class="token builtin">int32</span>
+	D <span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> S2 <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	A <span class="token builtin">int32</span>
+	C <span class="token builtin">int32</span>
+	B <span class="token builtin">int64</span>
+	D <span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> S3 <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	A <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+	B <span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> S4 <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	B <span class="token builtin">int64</span>
+	A <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">TestFieldAlignment</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>S1<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 32</span>
+	t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>S2<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 24</span>
+	t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>S3<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 8</span>
+	t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>S4<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 16</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>编译器做内存对齐的原因：</p> <ol><li>加快内存读取效率：处理器从内存中并不是按一个一个字节读取，而是每次按机器字长(等于数据总线和寄存器位宽)读取多个字节。对于某些数据类型，在struct中对某些字段间做了填充(比如上面结构S1中A和B之间、C和D字段之间分别填充了4个字节)。</li> <li>防止某些异常：如果结构体最后一个字段是<code>struct{}</code>，会做字段对齐，比如上面的S4，目的是防止访问越界。</li></ol> <p>这里思考一个问题：为什么编译器不做struct字段顺序的自动调整，而是填充无用内容浪费空间？</p></blockquote> <ul><li>显然，通过人调整结构体字段顺序，可以减少内存占用，提高程序性能。但有时候可能会适得其反，比如接下来要讨论的内容。</li> <li>go语言中<code>sync.Pool</code>中有如下内容：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">type</span> poolLocal <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	poolLocalInternal
+
+	<span class="token comment">// Prevents false sharing on widespread platforms with</span>
+	<span class="token comment">// 128 mod (cache line size) = 0 .</span>
+	pad <span class="token punctuation">[</span><span class="token number">128</span> <span class="token operator">-</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>poolLocalInternal<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p><code>poolLocal</code>中填充了一些字节，目的是为了防止伪共享(false sharing)降低性能。</p></blockquote> <ul><li>测试伪共享：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">type</span> T1 <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	A <span class="token builtin">int64</span>
+	B <span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkT1</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	t <span class="token operator">:=</span> <span class="token operator">&amp;</span>T1<span class="token punctuation">{</span><span class="token punctuation">}</span>
+	b<span class="token punctuation">.</span><span class="token function">RunParallel</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>p <span class="token operator">*</span>testing<span class="token punctuation">.</span>PB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">for</span> p<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			atomic<span class="token punctuation">.</span><span class="token function">AddInt64</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">.</span>A<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+			atomic<span class="token punctuation">.</span><span class="token function">AddInt64</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">.</span>B<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> T2 <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	A <span class="token builtin">int64</span>
+	<span class="token boolean">_</span> <span class="token punctuation">[</span><span class="token number">49</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token comment">// 思考一下，为什么填充这些字节？和哪些因素相关？</span>
+	B <span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkT2</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	t <span class="token operator">:=</span> <span class="token operator">&amp;</span>T2<span class="token punctuation">{</span><span class="token punctuation">}</span>
+	b<span class="token punctuation">.</span><span class="token function">RunParallel</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>p <span class="token operator">*</span>testing<span class="token punctuation">.</span>PB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">for</span> p<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			atomic<span class="token punctuation">.</span><span class="token function">AddInt64</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">.</span>A<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+			atomic<span class="token punctuation">.</span><span class="token function">AddInt64</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">.</span>B<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*
+ BenchmarkT1
+BenchmarkT1-4   	42094551	        35.31 ns/op	       0 B/op	       0 allocs/op
+BenchmarkT2
+BenchmarkT2-4   	49011622	        23.36 ns/op	       0 B/op	       0 allocs/op
+*/</span>
+</code></pre></div><blockquote><p>可以看出，通过填充多余字节，反而提高了并发性能，这是因为填充多余字节避免了伪共享。</p></blockquote> <ul><li>伪共享发生的原因：在多核并发时，如果多个线程对同一缓存行(cache line)的不同字段同时做了原子化修改导致缓存失效(缓存一致性协议)，进而导致缓存命中率下降和程序性能下降。</li></ul> <blockquote><p>伪共享发生的条件：1. 不同字段位于同一缓存行；2.并发执行原子化操作，触发缓存失效。</p></blockquote> <ul><li>所以通过填充多余字节，使得不同字段位于不同缓存行，可以避免伪共享问题。</li> <li>缓存行大小与处理器架构有关，<code>golang.org/x/sys/cpu</code>提供了<code>cpu.CacheLinePad</code>可以帮助处理不同硬件平台的字段填充：</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;sync/atomic&quot;</span>
+	<span class="token string">&quot;testing&quot;</span>
+
+	<span class="token string">&quot;golang.org/x/sys/cpu&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">type</span> T3 <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	A <span class="token builtin">int64</span>
+	<span class="token boolean">_</span> cpu<span class="token punctuation">.</span>CacheLinePad
+	B <span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkT3</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	t <span class="token operator">:=</span> <span class="token operator">&amp;</span>T3<span class="token punctuation">{</span><span class="token punctuation">}</span>
+	b<span class="token punctuation">.</span><span class="token function">RunParallel</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>p <span class="token operator">*</span>testing<span class="token punctuation">.</span>PB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">for</span> p<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			atomic<span class="token punctuation">.</span><span class="token function">AddInt64</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">.</span>A<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+			atomic<span class="token punctuation">.</span><span class="token function">AddInt64</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">.</span>B<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token comment">// BenchmarkT3-4</span>
+	<span class="token comment">// 49838684	        23.25 ns/op	       0 B/op	       0 allocs/op</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>最后，关于性能优化，谨记：过早优化是万恶之源。</li> <li>所以上述性能优化技巧日常开发时没必要用，了解其原理即可。</li> <li>不要陷入八股文细节，最核心的永远是：数据结构与算法、计算机组成原理、操作系统、计算机网络。</li></ul></div> <footer><!----> <hr> <!----></footer></article> <div class="sticker vuepress-toc"><div class="vuepress-toc-item vuepress-toc-h2 active"><a href="#range-map的无序性和随机性" title="range map的无序性和随机性">range map的无序性和随机性</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#不可变语义的缺失" title="不可变语义的缺失">不可变语义的缺失</a></div><div class="vuepress-toc-item vuepress-toc-h2"><a href="#内存对齐-struct-field-alignment-和伪共享-false-sharing" title="内存对齐(struct field alignment)和伪共享(false sharing)">内存对齐(struct field alignment)和伪共享(false sharing)</a></div></div></div></div> <footer class="footer" data-v-3d9deeb8><div class="footer-left-wrap" data-v-3d9deeb8><ul class="contact" data-v-3d9deeb8></ul></div> <div class="footer-right-wrap" data-v-3d9deeb8><ul class="copyright" data-v-3d9deeb8></ul></div></footer></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.33e9ffea.js" defer></script><script src="/assets/js/6.d22056b0.js" defer></script><script src="/assets/js/3.d778d637.js" defer></script><script src="/assets/js/15.4ce343c2.js" defer></script><script src="/assets/js/7.3763ae97.js" defer></script>
+  </body>
+</html>

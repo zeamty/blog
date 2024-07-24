@@ -27,11 +27,15 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "2023/06/12/golang-misc/index.html",
-    "revision": "080c047dc0e612800fa74f9652ff874e"
+    "revision": "b29e87875dc5c6a91a974cb98b5951ec"
+  },
+  {
+    "url": "2024/07/22/golang-misc-2/index.html",
+    "revision": "709e2c6322862d5da49d09d21bba2b0b"
   },
   {
     "url": "404.html",
-    "revision": "3ba6265d483e2fc96894de17f0eb8470"
+    "revision": "98b84b3b3b3f0565a7fefbc43affcd83"
   },
   {
     "url": "assets/css/0.styles.5f60fb72.css",
@@ -66,12 +70,16 @@ self.__precacheManifest = [
     "revision": "b71a67834219f24b490d69ef8e14ce26"
   },
   {
-    "url": "assets/js/14.fcd037f4.js",
+    "url": "assets/js/14.225b6828.js",
     "revision": "667569c7aeda1e4b6f2a75da22650015"
   },
   {
-    "url": "assets/js/15.9c14f64c.js",
-    "revision": "f1a699dbb9417d5533c1cd351416da55"
+    "url": "assets/js/15.4ce343c2.js",
+    "revision": "ba5d571aaa3c5bf3d2023c7a49e97fbf"
+  },
+  {
+    "url": "assets/js/16.bcdd9323.js",
+    "revision": "de74cb6ece4b2a3cc91419ca1b0209d9"
   },
   {
     "url": "assets/js/3.d778d637.js",
@@ -102,8 +110,8 @@ self.__precacheManifest = [
     "revision": "93b09b7167098a3269df264c11f6017a"
   },
   {
-    "url": "assets/js/app.686bb300.js",
-    "revision": "22d7e6897383c6534a8367595248d029"
+    "url": "assets/js/app.33e9ffea.js",
+    "revision": "946e8ba4f07400dd5e2798a9e2fa2615"
   },
   {
     "url": "assets/js/vuejs-paginate.55b38529.js",
@@ -111,15 +119,15 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "cf19c30f4bb6754ceeb4a0da2afa9ce6"
+    "revision": "6afc98e587aa052dc5117012ac480a22"
   },
   {
     "url": "tag/Go/index.html",
-    "revision": "74cee82d82e1f3695176b29f134956c6"
+    "revision": "3bdf478d03a5dfc7d1e8d6b6d8cbd1ee"
   },
   {
     "url": "tag/index.html",
-    "revision": "fffe3d42fde71b284a91a6c873052f33"
+    "revision": "264de50a62a074081248f682649f3118"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
